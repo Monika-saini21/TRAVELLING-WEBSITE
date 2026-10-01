@@ -10,6 +10,12 @@ import Hotels from "./pages/Hotels";
 import HotelBooking from "./pages/HotelBooking";
 import Flights from "./pages/Flights";
 import FlightBooking from "./pages/FlightBooking";
+import Itinerary from "./pages/Itinerary";
+import Gallery from "./pages/Gallery";
+import Reviews from "./pages/Reviews";
+import Contact from "./pages/Contact";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -26,9 +32,18 @@ function App() {
         <Route path="/hotels/:id" element={<HotelBooking />} />
         <Route path="/flights" element={<Flights />} />
         <Route path="/flights/:id" element={<FlightBooking />} />
+        <Route path="/itinerary" element={<Itinerary />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );
 }
 
 export default App;
+
+
+
