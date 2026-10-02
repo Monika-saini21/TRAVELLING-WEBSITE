@@ -85,6 +85,13 @@ function Navbar() {
           >
             Contact
           </Link>
+          
+          <Link
+            to="/my-bookings"
+            className="text-gray-700 hover:text-blue-600"
+          >
+            My Bookings
+          </Link>
         </div>
 
         {isLoggedIn ? (

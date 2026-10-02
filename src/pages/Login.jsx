@@ -22,23 +22,30 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const savedUser = JSON.parse(
-      localStorage.getItem("user")
-    );
+     if (
+    !formData.email.trim() ||
+    !formData.password.trim()
+  ) {
+    alert("Please enter email and password!");
+    return;
+  }
 
-    if (
-      savedUser &&
-      savedUser.email === formData.email &&
-      savedUser.password === formData.password
-    ) {
-      login();
+const users =
+  JSON.parse(localStorage.getItem("users")) || [];
 
-      alert("Login successful! 🎉");
+const savedUser = users.find(
+  (user) =>
+    user.email === formData.email.toLowerCase() &&
+    user.password === formData.password
+);
 
-      navigate("/");
-    } else {
-      alert("Invalid email or password!");
-    }
+if (savedUser) {
+  login(savedUser);
+  alert("Login successful! 🎉");
+  navigate("/");
+} else {
+  alert("Invalid email or password!");
+}
   };
 
   return (

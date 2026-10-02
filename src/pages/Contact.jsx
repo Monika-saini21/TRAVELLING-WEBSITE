@@ -15,18 +15,31 @@ function Contact() {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    console.log("Contact Form:", formData);
-
-    alert("Message sent successfully! 📩");
-
-    setFormData({
-      name: "",
-      email: "",
-      message: "",
-    });
+  const newEnquiry = {
+    id: Date.now(),
+    name: formData.name,
+    email: formData.email,
+    message: formData.message,
   };
+
+  const oldEnquiries =
+    JSON.parse(localStorage.getItem("enquiries")) || [];
+
+  localStorage.setItem(
+    "enquiries",
+    JSON.stringify([...oldEnquiries, newEnquiry])
+  );
+
+  alert("Message sent successfully! 📩");
+
+  setFormData({
+    name: "",
+    email: "",
+    message: "",
+  });
+};
 
   return (
     <div className="px-6 py-10">

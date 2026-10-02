@@ -22,13 +22,32 @@ function FlightBooking() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = (e) => {
+  e.preventDefault();
 
-    console.log("Flight Booking:", formData);
+const newBooking = {
+  id: Date.now(),
+  airline: flight.airline,
+  from: flight.from,
+  to: flight.to,
+  date: flight.date,
+  time: flight.time,
+  name: formData.name,
+  email: formData.email,
+  userEmail: formData.email,
+  passengers: formData.passengers,
+};
 
-    alert("Flight booked successfully! ✈️");
-  };
+  const oldBookings =
+    JSON.parse(localStorage.getItem("flightBookings")) || [];
+
+  localStorage.setItem(
+    "flightBookings",
+    JSON.stringify([...oldBookings, newBooking])
+  );
+
+  alert("Flight booked successfully! ✈️");
+};
 
   if (!flight) {
     return (

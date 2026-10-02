@@ -16,6 +16,11 @@ import Reviews from "./pages/Reviews";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ProtectedRoute from "./components/ProtectedRoute";
+import MyBookings from "./pages/MyBookings";
+import Admin from "./pages/Admin";
+import AdminLogin from "./pages/AdminLogin";
+import AdminRoute from "./components/AdminRoute";
 
 function App() {
   return (
@@ -29,15 +34,19 @@ function App() {
         <Route path="/packages" element={<Packages />} />
         <Route path="/packages/:id" element={<PackageDetails />} />
         <Route path="/hotels" element={<Hotels />} />
-        <Route path="/hotels/:id" element={<HotelBooking />} />
+        <Route path="/hotels/:id"element={ <ProtectedRoute>  <HotelBooking /> </ProtectedRoute> }/>
         <Route path="/flights" element={<Flights />} />
-        <Route path="/flights/:id" element={<FlightBooking />} />
+        <Route path="/flights/:id" element={ <ProtectedRoute> <FlightBooking /> </ProtectedRoute>}/>
         <Route path="/itinerary" element={<Itinerary />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/my-bookings" element={ <ProtectedRoute> <MyBookings /> </ProtectedRoute>}/>
+        <Route path="/admin" element={ <AdminRoute> <Admin /> </AdminRoute> }/>
+        <Route path="/admin-login" element={<AdminLogin />}/>
+        
       </Routes>
     </div>
   );

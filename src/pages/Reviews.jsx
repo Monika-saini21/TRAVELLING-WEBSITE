@@ -1,7 +1,40 @@
+import { useState } from "react";
 import ReviewCard from "../components/ReviewCard";
 import reviews from "../data/reviews";
 
 function Reviews() {
+const [rating, setRating] = useState(5);
+const [comment, setComment] = useState("");
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+
+  if (!comment.trim()) {
+    alert("Please write your review!");
+    return;
+  }
+
+  const newReview = {
+    id: Date.now(),
+    name: "You",
+    rating: Number(rating),
+    comment: comment,
+  };
+
+  const oldReviews =
+    JSON.parse(localStorage.getItem("userReviews")) || [];
+
+  localStorage.setItem(
+    "userReviews",
+    JSON.stringify([...oldReviews, newReview])
+  );
+
+  alert("Review submitted successfully! ⭐");
+
+  setRating(5);
+  setComment("");
+};
+
   return (
     <div className="px-6 py-10">
 
@@ -36,8 +69,47 @@ function Reviews() {
           ))}
 
         </div>
+      
+        <div className="mx-auto  my-10 max-w-2xl rounded-2xl bg-white p-6 shadow-md">
+            <h2 className="text-2xl font-bold">
+              Share Your Experience ⭐
+            </h2>
+
+            <form
+              onSubmit={handleSubmit}
+              className="mt-5 space-y-4"
+            >
+              <select
+                value={rating}
+                onChange={(e) => setRating(e.target.value)}
+                className="w-full rounded-xl border border-gray-300 px-4 py-3"
+              >
+                <option value="5">⭐⭐⭐⭐⭐ 5 Stars</option>
+                <option value="4">⭐⭐⭐⭐ 4 Stars</option>
+                <option value="3">⭐⭐⭐ 3 Stars</option>
+                <option value="2">⭐⭐ 2 Stars</option>
+                <option value="1">⭐ 1 Star</option>
+              </select>
+
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Write your review..."
+                rows="4"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-600"
+              />
+
+              <button
+                type="submit"
+                className="rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
+              >
+                Submit Review
+              </button>
+            </form>
+        </div>
 
       </div>
+      
     </div>
   );
 }

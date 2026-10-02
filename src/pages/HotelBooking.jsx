@@ -24,13 +24,31 @@ function HotelBooking() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+ const handleSubmit = (e) => {
+  e.preventDefault();
 
-    console.log("Booking Details:", formData);
+ const newBooking = {
+  id: Date.now(),
+  hotelName: hotel.name,
+  location: hotel.location,
+  name: formData.name,
+  email: formData.email,
+  userEmail: formData.email,
+  checkIn: formData.checkIn,
+  checkOut: formData.checkOut,
+  guests: formData.guests,
+};
 
-    alert("Hotel booked successfully! 🎉");
-  };
+  const oldBookings =
+    JSON.parse(localStorage.getItem("hotelBookings")) || [];
+
+  localStorage.setItem(
+    "hotelBookings",
+    JSON.stringify([...oldBookings, newBooking])
+  );
+
+  alert("Hotel booked successfully! 🎉");
+};
 
   if (!hotel) {
     return (

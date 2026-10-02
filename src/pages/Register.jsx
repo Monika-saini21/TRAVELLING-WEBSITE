@@ -4,11 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 function Register() {
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+});
 
   const handleChange = (e) => {
     setFormData({
@@ -17,19 +18,60 @@ function Register() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    localStorage.setItem(
-      "user",
-      JSON.stringify(formData)
-    );
+    if (
+    !formData.name.trim() ||
+    !formData.email.trim() ||
+    !formData.password.trim()
+    ) {
+    alert("Please fill all fields!");
+    return;
+    }
 
-    alert("Registration successful! 🎉");
+    if (!formData.email.includes("@")) {
+  alert("Please enter a valid email!");
+  return;
+}
 
-    navigate("/login");
+    if (formData.password.length < 6) {
+  alert("Password must be at least 6 characters!");
+  return;
+}
+
+if (formData.password !== formData.confirmPassword) {
+  alert("Passwords do not match!");
+  return;
+}
+  const oldUsers =
+    JSON.parse(localStorage.getItem("users")) || [];
+
+  const existingUser = oldUsers.find(
+    (user) => user.email === formData.email
+  );
+
+  if (existingUser) {
+    alert("This email is already registered!");
+    return;
+  }
+
+  const newUser = {
+    id: Date.now(),
+    name: formData.name,
+    email: formData.email.toLowerCase(),
+    password: formData.password,
   };
 
+  localStorage.setItem(
+    "users",
+    JSON.stringify([...oldUsers, newUser])
+  );
+
+  alert("Registration successful! 🎉");
+
+  navigate("/login");
+};
   return (
     <div className="flex min-h-[80vh] items-center justify-center px-6">
 
@@ -76,6 +118,15 @@ function Register() {
             onChange={handleChange}
             required
             className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-600"
+          />
+
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500"
           />
 
           <button
