@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import packages from "../data/packages";
 
 function PackageDetails() {
@@ -10,59 +10,93 @@ function PackageDetails() {
 
   if (!packageData) {
     return (
-      <h1 className="p-10 text-2xl">
-        Package not found
-      </h1>
+      <div className="px-6 py-20 text-center">
+        <h1 className="text-3xl font-bold text-gray-800">
+          Package Not Found 😔
+        </h1>
+
+        <Link
+          to="/packages"
+          className="mt-6 inline-block rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white"
+        >
+          Back to Packages
+        </Link>
+      </div>
     );
   }
 
   return (
-    <div className="px-6 py-10">
+    <div className="px-6 py-12">
 
-      <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl bg-white shadow-lg">
+      <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-white shadow-xl">
 
+        {/* IMAGE */}
         <img
           src={packageData.image}
-          alt={packageData.title}
-          className="h-96 w-full object-cover"
+          alt={packageData.name}
+          className="h-80 w-full object-cover sm:h-96"
         />
 
-        <div className="p-8">
+        {/* CONTENT */}
+        <div className="p-6 sm:p-10">
 
-          <h1 className="text-4xl font-bold">
-            {packageData.title}
+          <p className="font-semibold text-blue-600">
+            ✈️ Travel Package
+          </p>
+
+          <h1 className="mt-2 text-4xl font-bold text-gray-800">
+            {packageData.name}
           </h1>
 
-          <p className="mt-2 text-lg text-gray-500">
-            📍 {packageData.destination}
+          <p className="mt-5 leading-7 text-gray-500">
+            Enjoy an unforgettable journey with our{" "}
+            <span className="font-semibold text-gray-700">
+              {packageData.name}
+            </span>
+            . Explore beautiful places and enjoy a comfortable
+            travel experience.
           </p>
 
-          <p className="mt-5 text-gray-600">
-            Enjoy an amazing travel experience with our{" "}
-            {packageData.title} package.
-          </p>
-
-          <div className="mt-6 space-y-3">
-            <p>
-              <span className="font-semibold">Duration:</span>{" "}
-              {packageData.duration}
+          {/* PRICE */}
+          <div className="mt-8 rounded-2xl bg-blue-50 p-5">
+            <p className="text-sm text-gray-500">
+              Package Price
             </p>
 
-            <p>
-              <span className="font-semibold">Price:</span>{" "}
-              <span className="text-blue-600">
-                {packageData.price}
-              </span>
+            <p className="mt-1 text-3xl font-bold text-blue-600">
+              {packageData.price}
             </p>
           </div>
 
-          <button className="mt-7 rounded-full bg-blue-600 px-7 py-3 font-semibold text-white hover:bg-blue-700">
-            Book Package
-          </button>
+          {/* BUTTONS */}
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+
+            <Link
+              to="/hotels"
+              className="rounded-xl bg-blue-600 px-6 py-3 text-center font-semibold text-white hover:bg-blue-700"
+            >
+              Book Hotel
+            </Link>
+
+            <Link
+              to="/flights"
+              className="rounded-xl border border-blue-600 px-6 py-3 text-center font-semibold text-blue-600 hover:bg-blue-50"
+            >
+              Book Flight
+            </Link>
+
+            <Link
+              to="/packages"
+              className="rounded-xl border border-gray-300 px-6 py-3 text-center font-semibold text-gray-700 hover:bg-gray-50"
+            >
+              Back
+            </Link>
+
+          </div>
 
         </div>
-
       </div>
+
     </div>
   );
 }

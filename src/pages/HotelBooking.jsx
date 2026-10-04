@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
-import hotels from "../data/hotels";
 import { useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import hotels from "../data/hotels";
 
 function HotelBooking() {
   const { id } = useParams();
@@ -14,8 +14,25 @@ function HotelBooking() {
     email: "",
     checkIn: "",
     checkOut: "",
-    guests: 1,
+    guests: "1",
   });
+
+  if (!hotel) {
+    return (
+      <div className="px-6 py-20 text-center">
+        <h1 className="text-3xl font-bold text-gray-800">
+          Hotel Not Found 😔
+        </h1>
+
+        <Link
+          to="/hotels"
+          className="mt-6 inline-block rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white"
+        >
+          Back to Hotels
+        </Link>
+      </div>
+    );
+  }
 
   const handleChange = (e) => {
     setFormData({
@@ -24,86 +41,94 @@ function HotelBooking() {
     });
   };
 
- const handleSubmit = (e) => {
-  e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
- const newBooking = {
-  id: Date.now(),
-  hotelName: hotel.name,
-  location: hotel.location,
-  name: formData.name,
-  email: formData.email,
-  userEmail: formData.email,
-  checkIn: formData.checkIn,
-  checkOut: formData.checkOut,
-  guests: formData.guests,
-};
+    if (
+      !formData.name.trim() ||
+      !formData.email.trim() ||
+      !formData.checkIn ||
+      !formData.checkOut
+    ) {
+      alert("Please fill all fields!");
+      return;
+    }
 
-  const oldBookings =
-    JSON.parse(localStorage.getItem("hotelBookings")) || [];
+    const newBooking = {
+      id: Date.now(),
+      hotelName: hotel.name,
+      location: hotel.location,
+      name: formData.name,
+      email: formData.email,
+      userEmail: formData.email,
+      checkIn: formData.checkIn,
+      checkOut: formData.checkOut,
+      guests: formData.guests,
+      createdAt: new Date().toISOString(),
+    };
 
-  localStorage.setItem(
-    "hotelBookings",
-    JSON.stringify([...oldBookings, newBooking])
-  );
+    const oldBookings =
+      JSON.parse(localStorage.getItem("hotelBookings")) || [];
 
-  alert("Hotel booked successfully! 🎉");
-};
-
-  if (!hotel) {
-    return (
-      <h1 className="p-10 text-2xl">
-        Hotel not found
-      </h1>
+    localStorage.setItem(
+      "hotelBookings",
+      JSON.stringify([...oldBookings, newBooking])
     );
-  }
+
+    alert("Hotel booked successfully! 🎉");
+
+    setFormData({
+      name: "",
+      email: "",
+      checkIn: "",
+      checkOut: "",
+      guests: "1",
+    });
+  };
 
   return (
-    <div className="px-6 py-10">
+    <div className="px-6 py-12">
 
       <div className="mx-auto max-w-5xl">
 
-        {/* HOTEL DETAILS */}
+        {/* HOTEL INFO */}
+        <div className="mb-8 rounded-3xl bg-white p-6 shadow-lg sm:p-8">
 
-        <div className="overflow-hidden rounded-3xl bg-white shadow-lg">
+          <p className="font-semibold text-blue-600">
+            🏨 Hotel Booking
+          </p>
 
-          <img
-            src={hotel.image}
-            alt={hotel.name}
-            className="h-80 w-full object-cover"
-          />
+          <h1 className="mt-2 text-3xl font-bold text-gray-800">
+            {hotel.name}
+          </h1>
 
-          <div className="p-6">
-            <h1 className="text-3xl font-bold">
-              {hotel.name}
-            </h1>
+          <p className="mt-2 text-gray-500">
+            📍 {hotel.location}
+          </p>
 
-            <p className="mt-2 text-gray-500">
-              📍 {hotel.location}
-            </p>
-
-            <p className="mt-2 text-yellow-500">
+          <div className="mt-4 flex flex-wrap gap-4">
+            <span className="rounded-full bg-yellow-100 px-4 py-2 font-semibold">
               ⭐ {hotel.rating}
-            </p>
+            </span>
 
-            <p className="mt-2 font-bold text-blue-600">
-              {hotel.price}
-            </p>
+            <span className="rounded-full bg-blue-100 px-4 py-2 font-semibold text-blue-700">
+              {hotel.price} / night
+            </span>
           </div>
+
         </div>
 
         {/* BOOKING FORM */}
+        <form
+          onSubmit={handleSubmit}
+          className="rounded-3xl bg-white p-6 shadow-lg sm:p-8"
+        >
 
-        <div className="mt-8 rounded-3xl bg-white p-8 shadow-lg">
-
-          <h2 className="mb-6 text-2xl font-bold">
-            Book Your Stay 🏨
+          <h2 className="text-2xl font-bold text-gray-800">
+            Enter Booking Details
           </h2>
 
-          <form
-            onSubmit={handleSubmit}
-            className="grid gap-5 md:grid-cols-2"
-          >
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
 
             <input
               type="text"
@@ -111,8 +136,7 @@ function HotelBooking() {
               placeholder="Your Name"
               value={formData.name}
               onChange={handleChange}
-              required
-              className="rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-600"
+              className="rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500"
             />
 
             <input
@@ -121,13 +145,12 @@ function HotelBooking() {
               placeholder="Your Email"
               value={formData.email}
               onChange={handleChange}
-              required
-              className="rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-600"
+              className="rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500"
             />
 
             <div>
-              <label className="mb-2 block font-medium">
-                Check In
+              <label className="mb-2 block text-sm font-medium text-gray-600">
+                Check-in
               </label>
 
               <input
@@ -135,14 +158,13 @@ function HotelBooking() {
                 name="checkIn"
                 value={formData.checkIn}
                 onChange={handleChange}
-                required
-                className="w-full rounded-xl border border-gray-300 px-4 py-3"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500"
               />
             </div>
 
             <div>
-              <label className="mb-2 block font-medium">
-                Check Out
+              <label className="mb-2 block text-sm font-medium text-gray-600">
+                Check-out
               </label>
 
               <input
@@ -150,32 +172,36 @@ function HotelBooking() {
                 name="checkOut"
                 value={formData.checkOut}
                 onChange={handleChange}
-                required
-                className="w-full rounded-xl border border-gray-300 px-4 py-3"
+                className="w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500"
               />
             </div>
 
-            <input
-              type="number"
+            <select
               name="guests"
-              min="1"
               value={formData.guests}
               onChange={handleChange}
-              className="rounded-xl border border-gray-300 px-4 py-3"
-            />
-
-            <button
-              type="submit"
-              className="rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
+              className="rounded-xl border border-gray-300 px-4 py-3 outline-none focus:border-blue-500"
             >
-              Confirm Booking
-            </button>
+              <option value="1">1 Guest</option>
+              <option value="2">2 Guests</option>
+              <option value="3">3 Guests</option>
+              <option value="4">4 Guests</option>
+              <option value="5">5 Guests</option>
+            </select>
 
-          </form>
+          </div>
 
-        </div>
+          <button
+            type="submit"
+            className="mt-6 w-full rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
+          >
+            Confirm Booking 🏨
+          </button>
+
+        </form>
 
       </div>
+
     </div>
   );
 }

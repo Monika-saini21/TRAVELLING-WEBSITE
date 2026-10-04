@@ -1,25 +1,33 @@
 import { useState } from "react";
 import ReviewCard from "../components/ReviewCard";
 import reviews from "../data/reviews";
+import { useAuth } from "../context/AuthContext";
 
 function Reviews() {
 const [rating, setRating] = useState(5);
 const [comment, setComment] = useState("");
+const { user } = useAuth();
 
 const handleSubmit = (e) => {
   e.preventDefault();
+
+  if (!user) {
+    alert("Please login first to submit a review!");
+    return;
+  }
 
   if (!comment.trim()) {
     alert("Please write your review!");
     return;
   }
 
-  const newReview = {
-    id: Date.now(),
-    name: "You",
-    rating: Number(rating),
-    comment: comment,
-  };
+const newReview = {
+  id: Date.now(),
+  name: user?.name || "You",
+  email: user?.email || "",
+  rating: Number(rating),
+  comment: comment,
+};
 
   const oldReviews =
     JSON.parse(localStorage.getItem("userReviews")) || [];

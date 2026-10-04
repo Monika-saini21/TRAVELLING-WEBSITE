@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import destinations from "../data/destinations";
 
 function DestinationDetails() {
@@ -9,44 +9,87 @@ function DestinationDetails() {
   );
 
   if (!destination) {
-    return <h1 className="p-10 text-2xl">Destination not found</h1>;
+    return (
+      <div className="px-6 py-20 text-center">
+        <h1 className="text-3xl font-bold text-gray-800">
+          Destination Not Found 😔
+        </h1>
+
+        <Link
+          to="/destinations"
+          className="mt-6 inline-block rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white"
+        >
+          Back to Destinations
+        </Link>
+      </div>
+    );
   }
 
   return (
-    <div className="px-6 py-10">
-      <div className="mx-auto max-w-5xl overflow-hidden rounded-3xl bg-white shadow-lg">
+    <div className="px-6 py-12">
 
+      <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-white shadow-xl">
+
+        {/* IMAGE */}
         <img
           src={destination.image}
           alt={destination.name}
-          className="h-96 w-full object-cover"
+          className="h-80 w-full object-cover sm:h-96"
         />
 
-        <div className="p-8">
-          <h1 className="text-4xl font-bold">
+        {/* CONTENT */}
+        <div className="p-6 sm:p-10">
+
+          <p className="font-semibold text-blue-600">
+            📍 {destination.country}
+          </p>
+
+          <h1 className="mt-2 text-4xl font-bold text-gray-800">
             {destination.name}
           </h1>
 
-          <p className="mt-2 text-lg text-gray-500">
-            {destination.country}
-          </p>
-
-          <p className="mt-6 text-gray-600">
+          <p className="mt-5 leading-7 text-gray-500">
             Explore the beautiful destination of{" "}
-            {destination.name}. Discover amazing places,
-            beautiful views and unforgettable experiences.
+            <span className="font-semibold text-gray-700">
+              {destination.name}
+            </span>
+            . Discover amazing places, enjoy local experiences
+            and create unforgettable travel memories.
           </p>
 
-          <p className="mt-6 text-2xl font-bold text-blue-600">
-            Starting from {destination.price}
-          </p>
+          {/* PRICE */}
+          <div className="mt-8 rounded-2xl bg-blue-50 p-5">
+            <p className="text-sm text-gray-500">
+              Starting Price
+            </p>
 
-          <button className="mt-6 rounded-full bg-blue-600 px-7 py-3 font-semibold text-white hover:bg-blue-700">
-            Book Now
-          </button>
+            <p className="mt-1 text-3xl font-bold text-blue-600">
+              {destination.price}
+            </p>
+          </div>
+
+          {/* BUTTONS */}
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+
+            <Link
+              to="/packages"
+              className="rounded-xl bg-blue-600 px-6 py-3 text-center font-semibold text-white hover:bg-blue-700"
+            >
+              View Packages
+            </Link>
+
+            <Link
+              to="/destinations"
+              className="rounded-xl border border-gray-300 px-6 py-3 text-center font-semibold text-gray-700 hover:bg-gray-50"
+            >
+              Back to Destinations
+            </Link>
+
+          </div>
+
         </div>
-
       </div>
+
     </div>
   );
 }

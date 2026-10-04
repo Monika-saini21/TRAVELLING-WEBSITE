@@ -14,13 +14,32 @@ function Contact() {
     });
   };
 
-  const handleSubmit = (e) => {
+const handleSubmit = (e) => {
   e.preventDefault();
+
+  if (
+    !formData.name.trim() ||
+    !formData.email.trim() ||
+    !formData.message.trim()
+  ) {
+    alert("Please fill all fields!");
+    return;
+  }
+
+  if (!formData.email.includes("@")) {
+    alert("Please enter a valid email!");
+    return;
+  }
+
+  if (formData.message.trim().length < 10) {
+    alert("Message must be at least 10 characters!");
+    return;
+  }
 
   const newEnquiry = {
     id: Date.now(),
     name: formData.name,
-    email: formData.email,
+    email: formData.email.toLowerCase(),
     message: formData.message,
   };
 

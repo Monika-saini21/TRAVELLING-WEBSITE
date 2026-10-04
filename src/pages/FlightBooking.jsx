@@ -36,6 +36,7 @@ const newBooking = {
   email: formData.email,
   userEmail: formData.email,
   passengers: formData.passengers,
+  createdAt: new Date().toISOString(),
 };
 
   const oldBookings =

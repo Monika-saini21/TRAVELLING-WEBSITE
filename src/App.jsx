@@ -21,6 +21,8 @@ import MyBookings from "./pages/MyBookings";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 import AdminRoute from "./components/AdminRoute";
+import Footer from "./components/Footer";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -46,8 +48,11 @@ function App() {
         <Route path="/my-bookings" element={ <ProtectedRoute> <MyBookings /> </ProtectedRoute>}/>
         <Route path="/admin" element={ <AdminRoute> <Admin /> </AdminRoute> }/>
         <Route path="/admin-login" element={<AdminLogin />}/>
+        <Route path="*" element={<NotFound />} />
         
       </Routes>
+
+      <Footer />
     </div>
   );
 }
