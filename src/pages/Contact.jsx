@@ -1,3 +1,4 @@
+import { Mail } from "lucide-react";
 import { useState } from "react";
 
 function Contact() {
@@ -67,20 +68,30 @@ const handleSubmit = (e) => {
 
         {/* HEADING */}
 
-        <div className="mb-10 text-center">
-          <p className="font-semibold text-blue-600">
-            Get In Touch 📩
-          </p>
+       <div className="mb-10 text-center">
 
-          <h1 className="mt-2 text-4xl font-bold">
-            Contact Us
-          </h1>
-
-          <p className="mt-4 text-gray-600">
-            Have a question? Send us a message.
-          </p>
+        {/* MAIL ICON */}
+        <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-blue-50">
+          <Mail
+            size={42}
+            strokeWidth={2}
+            className="text-blue-600"
+          />
         </div>
 
+        <p className="font-semibold text-blue-600">
+          Get In Touch
+        </p>
+
+        <h1 className="mt-2 text-4xl font-bold text-slate-900">
+          Contact Us
+        </h1>
+
+        <p className="mt-4 text-gray-600">
+          Have a question? Send us a message.
+        </p>
+
+      </div>
         {/* FORM */}
 
         <form

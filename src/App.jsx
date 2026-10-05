@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import Destinations from "./pages/Destinations";
 import DestinationDetails from "./pages/DestinationDetails";
 import Packages from "./pages/Packages";
 import PackageDetails from "./pages/PackageDetails";
@@ -23,6 +22,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminRoute from "./components/AdminRoute";
 import Footer from "./components/Footer";
 import NotFound from "./pages/NotFound";
+import DestinationSection from "./components/DestinationSection";
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/destinations" element={<Destinations />} />
+        <Route path="/destinations" element={<DestinationSection />} />
         <Route path="/destinations/:id" element={<DestinationDetails />} />
         <Route path="/packages" element={<Packages />} />
         <Route path="/packages/:id" element={<PackageDetails />} />

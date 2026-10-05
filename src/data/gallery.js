@@ -35,6 +35,13 @@ const gallery = [
       "https://images.unsplash.com/photo-1519681393784-d120267933ba",
     title: "Nature",
   },
+   {
+    id: 7,
+    image:
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    title: "Beach",
+  },
+
 ];
 
 export default gallery;

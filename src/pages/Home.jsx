@@ -1,219 +1,115 @@
-import DestinationCard from "../components/DestinationCard";
-import destinations from "../data/destinations";
+import AboutSection from "../components/AboutSection";
+
+import DestinationSection from "../components/DestinationSection";
+import WhyChooseUs from "../components/WhyChooseUs";
 import { useState } from "react";
+import Gallery from "./Gallery";
+import Reviews from "./Reviews";
 
 function Home() {
-    const [search, setSearch] = useState("");
+   
+    const [currentImage, setCurrentImage] = useState(0);
+
+const images = [
+  "https://videocdn.cdnpk.net/videos/19c8a305-c402-4744-95d2-fe8fff495128/horizontal/thumbnails/large.jpg",
+  "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80",
+  "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=80",
+];
   return (
     <div>
-        {/* HERO SECTION */}
-        <section className="mx-auto flex max-w-7xl flex-col items-center gap-10 px-6 py-12 sm:py-16 md:flex-row md:justify-between">
-
-          {/* LEFT CONTENT */}
-          <div className="w-full max-w-xl text-center md:text-left">
-
-            <p className="mb-3 font-semibold text-blue-600">
-              ✈️ Explore The World
-            </p>
-
-            <h1 className="text-4xl font-bold leading-tight text-gray-800 sm:text-5xl">
-              Discover Your Next
-              <span className="text-blue-600">
-                {" "}Adventure
-              </span>
-            </h1>
-
-            <p className="mt-6 text-base leading-7 text-gray-500 sm:text-lg sm:leading-8">
-              Explore beautiful destinations, book hotels and flights,
-              and create unforgettable travel experiences.
-            </p>
-
-            {/* BUTTONS */}
-            <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row md:justify-start">
-
-              <a
-                href="/destinations"
-                className="rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700"
-              >
-                Explore Destinations
-              </a>
-
-              <a
-                href="/packages"
-                className="rounded-xl border border-blue-600 px-6 py-3 font-semibold text-blue-600 hover:bg-blue-50"
-              >
-                View Packages
-              </a>
-
-            </div>
-
-          </div>
-
-          {/* HERO IMAGE */}
-          <div className="w-full max-w-lg">
-            <img
-              src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"
-              alt="Travel"
-              className="h-72 w-full rounded-3xl object-cover shadow-xl sm:h-96"
-            />
-          </div>
-
-        </section>
+      {/* HERO SECTION */}
 
 
-        {/* ================= POPULAR DESTINATIONS ================= */}
 
-        <section className="px-6 py-15">
-        <div className="mx-auto max-w-7xl">
+    <section className="relative h-160 w-full overflow-hidden">
 
-            <div className="mb-10 text-center">
-           
+      {/* BACKGROUND IMAGE */}
+      <img
+        src={images[currentImage]}
+        alt="Travel"
+        className="absolute inset-0 h-full w-full object-cover transition-all duration-700"
+      />
 
-            <h2 className="mt-2 text-4xl font-bold text-gray-900">
-                Explore Popular Destinations
-            </h2>
+      {/* DARK OVERLAY */}
+      <div className="absolute inset-0 bg-black/40"></div>
 
-            <p className="mx-auto mt-4 max-w-2xl text-gray-600">
-                Discover some of the world's most beautiful destinations
-                and plan your next unforgettable journey.
-            </p>
-            </div>
+      {/* HERO CONTENT */}
+      <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6">
 
-            
-        {/* SEARCH SECTION */}
+        <div className="max-w-xl text-white">
 
-        <section
-          id="popular-destinations"
-          className="px-6 py-10"
-        >
+          <p className="mb-3 text-lg font-medium">
+            Get unforgettable pleasure with us
+          </p>
 
-        <div className="mx-auto max-w-4xl rounded-2xl bg-white p-6 shadow-lg">
+          <h1 className="text-5xl font-semibold leading-tight sm:text-6xl">
+            Natural Wonder
+            <br />
+            Of The World
+          </h1>
 
-            <div className="flex flex-col gap-4 md:flex-row">
+          <div className="mt-8 flex flex-wrap gap-4">
 
-            <input
-                type="text"
-                placeholder="Search destination..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full rounded-xl border border-gray-300 px-5 py-3 outline-none focus:border-blue-600"
-            />
-
-           <button
-              onClick={() => {
-                const section = document.getElementById("popular-destinations");
-
-                section?.scrollIntoView({
-                  behavior: "smooth",
-                });
-              }}
-              className="rounded-xl bg-blue-600 px-8 py-3 font-semibold text-white hover:bg-blue-700"
+            <a
+              href="/destinations"
+              className="rounded-full bg-cyan-500 px-7 py-3 font-semibold text-white transition hover:bg-cyan-600"
             >
-              Search
-            </button>
+              Explore Tours →
+            </a>
 
-            </div>
+            <a
+              href="/packages"
+              className="rounded-full border border-white px-7 py-3 font-semibold text-white transition hover:bg-white hover:text-gray-800"
+            >
+              Our Services →
+            </a>
 
-        </div>
-
-        </section>
-
-            {/* DESTINATION CARDS */}
-
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-
-              {destinations.filter((destination) =>
-                destination.name.toLowerCase().includes(search.toLowerCase()) ||
-                destination.country.toLowerCase().includes(search.toLowerCase())
-              ).length === 0 ? (
-
-                <div className="col-span-full py-10 text-center">
-                  <p className="text-xl font-semibold text-gray-600">
-                    😔 No destination found
-                  </p>
-
-                  <p className="mt-2 text-gray-400">
-                    Try searching for another destination.
-                  </p>
-                </div>
-
-              ) : (
-
-                destinations
-                  .filter((destination) =>
-                    destination.name.toLowerCase().includes(search.toLowerCase()) ||
-                    destination.country.toLowerCase().includes(search.toLowerCase())
-                  )
-                  .map((destination) => (
-                    <DestinationCard
-                      key={destination.id}
-                      destination={destination}
-                    />
-                  ))
-
-              )}
-
-            </div>
-
-        </div>
-        </section>
-
-        {/* WHY CHOOSE US */}
-
-        <section className="bg-gray-50 px-6 py-20">
-          <div className="mx-auto max-w-7xl">
-
-            <div className="mb-12 text-center">
-              <h2 className="text-4xl font-bold text-gray-900">
-                Why Choose TravelX?
-              </h2>
-
-              <p className="mx-auto mt-4 max-w-2xl text-gray-600">
-                We make your travel planning simple, comfortable and memorable.
-              </p>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-3">
-
-              <div className="rounded-2xl bg-white p-8 text-center shadow-md">
-                <div className="text-4xl">🌍</div>
-
-                <h3 className="mt-4 text-xl font-bold">
-                  Amazing Destinations
-                </h3>
-
-                <p className="mt-3 text-gray-500">
-                  Explore beautiful destinations around the world.
-                </p>
-              </div>
-
-              <div className="rounded-2xl bg-white p-8 text-center shadow-md">
-                <div className="text-4xl">🏨</div>
-
-                <h3 className="mt-4 text-xl font-bold">
-                  Easy Booking
-                </h3>
-
-                <p className="mt-3 text-gray-500">
-                  Book hotels and flights easily from one place.
-                </p>
-              </div>
-
-              <div className="rounded-2xl bg-white p-8 text-center shadow-md">
-                <div className="text-4xl">⭐</div>
-
-                <h3 className="mt-4 text-xl font-bold">
-                  Trusted Experience
-                </h3>
-
-                <p className="mt-3 text-gray-500">
-                  Enjoy a smooth and memorable travel experience.
-                </p>
-              </div>
-
-            </div>
           </div>
-        </section>
+
+        </div>
+      </div>
+
+      {/* ARROWS */}
+      <div className="absolute right-8 top-1/2 z-10 flex -translate-y-1/2 flex-col gap-4">
+
+        {/* PREVIOUS */}
+        <button
+          onClick={() =>
+            setCurrentImage(
+              currentImage === 0
+                ? images.length - 1
+                : currentImage - 1
+            )
+          }
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-2xl text-white backdrop-blur-sm transition hover:bg-white/40"
+        >
+          ↑
+        </button>
+
+        {/* NEXT */}
+        <button
+          onClick={() =>
+            setCurrentImage(
+              currentImage === images.length - 1
+                ? 0
+                : currentImage + 1
+            )
+          }
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-2xl text-white backdrop-blur-sm transition hover:bg-white/40"
+        >
+          ↓
+        </button>
+
+      </div>
+
+    </section>
+
+
+<DestinationSection />
+<AboutSection/>
+<WhyChooseUs/>
+<Gallery/>
+<Reviews/>
 
     </div>
   );
