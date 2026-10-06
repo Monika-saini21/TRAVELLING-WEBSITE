@@ -38,6 +38,20 @@ const destinations = [
     image:
       "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1920&q=80",
     price: "₹90,000",
+  }, {
+    id: 6,
+    name: "Paris Explorer",
+    country: "France",
+    image:
+      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
+    price: "₹80,000",
+  }, {
+    id: 7,
+    name: "Dubai Adventure",
+    country: "UAE",
+    image:
+      "https://images.unsplash.com/photo-1512453979798-5ea266f8880c",
+    price: "₹45,000",
   },
 ];
 
