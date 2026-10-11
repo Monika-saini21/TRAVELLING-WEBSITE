@@ -5,12 +5,12 @@ function Gallery() {
   const [selectedImage, setSelectedImage] = useState(null);
 
   return (
-    <section className="bg-white px-6 py-16">
+    <section className="bg-white md:px-6 px-4 py-16">
 
       <div className="mx-auto max-w-7xl">
 
         {/* HEADING */}
-        <div className=" text-center">
+        <div className=" mb-10 md:mb-0 text-center">
 
           <p className="font-serif text-xl italic text-cyan-500">
             Make Your Trip More Memorable
@@ -24,13 +24,13 @@ function Gallery() {
 
 
         {/* GALLERY */}
-        <div className="flex h-130 items-center justify-center gap-3 overflow-hidden">
+        <div className="flex md:h-130 flex-wrap items-center justify-center md:gap-3 gap-3 overflow-hidden">
 
           {/* LEFT IMAGE */}
           {gallery[0] && (
             <div
               onClick={() => setSelectedImage(gallery[0].image)}
-              className="hidden h-56 w-36 cursor-pointer overflow-hidden rounded-2xl md:block lg:h-64 lg:w-40"
+              className=" h-83 w-36 cursor-pointer overflow-hidden rounded-2xl md:block lg:h-64 lg:w-40"
             >
               <img
                 src={gallery[0].image}
@@ -77,7 +77,7 @@ function Gallery() {
           {gallery[3] && (
             <div
               onClick={() => setSelectedImage(gallery[3].image)}
-              className="h-105 w-52 cursor-pointer overflow-hidden rounded-3xl shadow-xl lg:h-110 lg:w-60"
+              className="h-83 w-36 cursor-pointer overflow-hidden rounded-3xl shadow-xl lg:h-110 lg:w-60"
             >
               <img
                 src={gallery[3].image}
@@ -124,12 +124,12 @@ function Gallery() {
           {gallery[6] && (
             <div
               onClick={() => setSelectedImage(gallery[6].image)}
-              className="hidden h-56 w-36 cursor-pointer overflow-hidden rounded-2xl md:block lg:h-64 lg:w-40"
+              className="hidden h-83 w-36 cursor-pointer overflow-hidden rounded-2xl md:block lg:h-64 lg:w-40"
             >
               <img
                 src={gallery[6].image}
                 alt={gallery[6].title}
-                className="h-full w-full object-cover transition duration-500 hover:scale-110"
+                className="h-full w-full  object-cover transition duration-500 hover:scale-110"
               />
             </div>
           )}

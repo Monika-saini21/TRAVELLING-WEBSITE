@@ -70,7 +70,7 @@ const images = [
       </div>
 
       {/* ARROWS */}
-      <div className="absolute right-8 top-1/2 z-10 flex -translate-y-1/2 flex-col gap-4">
+      <div className="absolute right-8 bottom-20 md:bottom-1/3 z-10 flex -translate-y-1/2 flex-col gap-4">
 
         {/* PREVIOUS */}
         <button

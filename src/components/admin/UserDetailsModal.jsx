@@ -274,3 +274,17 @@ function UserDetailsModal({
 }
 
 export default UserDetailsModal;
+
+
+
+// REAL ESTATE PORTAL requirements : property listings filters contact owners favorite properties admin panel ( use full stack )
+ 
+// REAL ESTATE PORTAL                                        
+//      requirements :                                         
+//     property listings                         
+//        filters            
+                                         
+//        contact owners                            
+//        favorite properties    
+// admin panel  ( use full stack )
+ 

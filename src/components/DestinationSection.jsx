@@ -177,7 +177,7 @@ function DestinationSection() {
         {/* LEFT ARROW */}
         <button
           onClick={prevSlide}
-          className="absolute left-1/4 top-1/2 z-50 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-slate-800 text-2xl text-white shadow-lg transition hover:bg-slate-700"
+          className="absolute md:left-1/4 left-0 top-1/2 z-50 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-slate-800 text-2xl text-white shadow-lg transition hover:bg-slate-700"
         >
           ←
         </button>
@@ -186,7 +186,7 @@ function DestinationSection() {
         {/* RIGHT ARROW */}
         <button
           onClick={nextSlide}
-          className="absolute right-1/4 top-1/2 z-50 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-slate-800 text-2xl text-white shadow-lg transition hover:bg-slate-700"
+          className="absolute md:right-1/4 right-0 top-1/2 z-50 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-slate-800 text-2xl text-white shadow-lg transition hover:bg-slate-700"
         >
           →
         </button>
