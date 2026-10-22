@@ -112,12 +112,15 @@ function Navbar() {
                 Logout
               </button>
             ) : (
+              <>
               <Link
                 to="/login"
                 className="rounded-full bg-cyan-500 px-5 py-2 font-semibold text-black transition hover:bg-cyan-600"
               >
                 Login
               </Link>
+              
+              </>
             )}
 
           </div>
